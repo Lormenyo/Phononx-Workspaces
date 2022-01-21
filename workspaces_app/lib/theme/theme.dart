@@ -30,18 +30,19 @@ class AppTheme {
     ),
     fontFamily: 'Nunito',
     textTheme: TextTheme(
-      headline4: TextStyle(
-        color: Colors.white, //Color(0xFF82B229),
-        fontSize: 40.0,
-        fontWeight: FontWeight.bold,
-      ),
-      headline6: TextStyle(
-          color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.w600),
-      subtitle2: TextStyle(
-          color: Color(0xFF8E8E93),
-          fontSize: 16.0,
-          fontWeight: FontWeight.w400),
-    ),
+        headline4: TextStyle(
+          color: Colors.black, //Color(0xFF82B229),
+          fontSize: 40.0,
+          fontWeight: FontWeight.bold,
+        ),
+        headline6: TextStyle(
+            color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.w600),
+        subtitle2: TextStyle(
+            color: Color(0xFF8E8E93),
+            fontSize: 16.0,
+            fontWeight: FontWeight.w400),
+        subtitle1: TextStyle(
+            color: Colors.black, fontSize: 16.0, fontWeight: FontWeight.w400)),
     // inputDecorationTheme: InputDecorationTheme(
     //   filled: true,
     //   fillColor: Color(0xFFFFFFFF),
