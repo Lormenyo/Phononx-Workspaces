@@ -13,22 +13,14 @@ class WorkspaceWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       padding: EdgeInsets.symmetric(horizontal: 2, vertical: 10),
       decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(10)),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+      ),
       child: Row(
         children: [
-          // Container(
-          //   height: 50,
-          //   width: 100,
-          //   decoration: BoxDecoration(
-          //       borderRadius: BorderRadius.circular(10),
-          //       image: DecorationImage(
-          //           image: CachedNetworkImageProvider(this.imageUrl, ),
-          //           onError: (_, e) {},
-          //           fit: BoxFit.cover)),
-          // ),
           CachedNetworkImage(
             imageUrl: this.imageUrl,
             imageBuilder: (context, imageProvider) => Container(

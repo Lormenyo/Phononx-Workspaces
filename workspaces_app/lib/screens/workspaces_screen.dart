@@ -16,6 +16,7 @@ class _WorkspaceScreenState extends State<WorkspaceScreen> {
 
   loadWorkspaces() async {
     WorkspaceService.getWorkspaces().then((res) async {
+      print("RESPONSE: $res");
       _workspacesStreamController?.add(res);
       return res;
     });
@@ -24,7 +25,6 @@ class _WorkspaceScreenState extends State<WorkspaceScreen> {
   Future<Null> _handleRefresh() async {
     WorkspaceService.getWorkspaces().then((res) async {
       _workspacesStreamController?.add(res);
-      // showSnack();
       return null;
     });
   }
@@ -39,6 +39,7 @@ class _WorkspaceScreenState extends State<WorkspaceScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blue[100],
       appBar: AppBar(
         title: Text(
           "My Workspaces",
@@ -73,6 +74,8 @@ class _WorkspaceScreenState extends State<WorkspaceScreen> {
                 ),
               ],
             );
+          } else if (snapshot.hasError) {
+            return Text('${snapshot.error}');
           }
           return Center(child: CircularProgressIndicator());
         },
