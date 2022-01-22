@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 
 class WorkspaceService {
   static getWorkspaces() async {
+    print("Getting Workspaces");
     var url = Uri.parse('https://api.carbonvoice.app/challenge/workspaces');
     final response = await http.get(url);
 
