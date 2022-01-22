@@ -16,7 +16,6 @@ class _WorkspaceScreenState extends State<WorkspaceScreen> {
   StreamController? _workspacesStreamController;
 
   loadWorkspaces() async {
-    print("Loading workspaces");
     WorkspaceService.getWorkspaces().then((res) async {
       _workspacesStreamController?.add(res);
       return res;
@@ -92,6 +91,12 @@ class _WorkspaceScreenState extends State<WorkspaceScreen> {
         ),
         onConnectionResumed: () {
           loadWorkspaces();
+        },
+        onConnectionRetry: () {
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (BuildContext context) => super.widget));
         },
       ),
     );

@@ -5,8 +5,12 @@ import 'package:workspaces_app/widgets/button.dart';
 class ConnectivityCheck extends StatefulWidget {
   final Widget child;
   final VoidCallback onConnectionResumed;
+  final VoidCallback onConnectionRetry;
 
-  ConnectivityCheck({required this.child, required this.onConnectionResumed});
+  ConnectivityCheck(
+      {required this.child,
+      required this.onConnectionResumed,
+      required this.onConnectionRetry});
 
   @override
   _ConnectivityCheckState createState() => _ConnectivityCheckState();
@@ -41,9 +45,7 @@ class _ConnectivityCheckState extends State<ConnectivityCheck> {
                     width: 200,
                     child: Button(
                       child: Text("Try Again"),
-                      onpressed: () {
-                        setState(() {});
-                      },
+                      onpressed: widget.onConnectionRetry,
                     ),
                   )
                 ],
