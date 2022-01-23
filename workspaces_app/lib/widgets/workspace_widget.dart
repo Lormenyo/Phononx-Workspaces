@@ -16,7 +16,7 @@ class WorkspaceWidget extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       padding: EdgeInsets.symmetric(horizontal: 2, vertical: 10),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.secondary,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(

@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:workspaces_app/services/workspace_service.dart';
+import 'package:workspaces_app/theme/appThemeNotifier.dart';
 import 'package:workspaces_app/widgets/connectivity_checker.dart';
 import 'package:workspaces_app/widgets/workspace_widget.dart';
 
@@ -46,13 +48,29 @@ class _WorkspaceScreenState extends State<WorkspaceScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var apptheme = Provider.of<AppThemeNotifier>(context);
+
     return Scaffold(
-      backgroundColor: Colors.blue[100],
       appBar: AppBar(
         title: Text(
           "My Workspaces",
-          style: Theme.of(context).textTheme.subtitle1,
+          style: Theme.of(context).textTheme.subtitle1?.copyWith(fontSize: 20),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              apptheme.updateTheme(!apptheme.isDarkMode);
+            },
+            icon: Icon(
+              apptheme.isDarkMode ? Icons.nightlight : Icons.wb_sunny,
+              color: Colors.white,
+              size: 36,
+            ),
+          ),
+          SizedBox(
+            width: 15,
+          )
+        ],
       ),
       body: ConnectivityCheck(
         child: StreamBuilder(

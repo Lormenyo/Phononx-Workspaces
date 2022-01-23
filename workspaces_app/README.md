@@ -1,12 +1,22 @@
-# workspaces_app
+## Workspaces App 📱
 
-A new Flutter project.
+A Flutter project that fetches workspaces from an API.
 
-## Getting Started
+## Project Structure 📂
+The code for the application can be found in the `/lib` folder organised within the following sub-folders:
+- `models` : contains the .dart file with the workspace model.
+- `services`: contains the .dart file with the workspace service that fetches data from the API.
+- `screens`: contains the screen implementations for the application.
+- `widgets`: contains the reusable custom widgets to be used within the application.
+- `theme`: has the custom theme data for the application.
 
-This project is a starting point for a Flutter application.
+## Tests 📃
+Use the command below to run the test for the workspace service:
+```
+flutter test 
+```
 
-A few resources to get you started if this is your first Flutter project:
+## Resources 📰
 
 - [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
