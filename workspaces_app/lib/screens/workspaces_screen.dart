@@ -31,11 +31,15 @@ class _WorkspaceScreenState extends State<WorkspaceScreen> {
     });
   }
 
+  void pauseStream() {
+    _workspacesStreamController?.stream.listen((event) {}).pause();
+  }
+
   @override
   void initState() {
     super.initState();
     if (mounted) {
-      _workspacesStreamController = new StreamController();
+      _workspacesStreamController = new StreamController.broadcast();
       loadWorkspaces();
     }
   }
@@ -62,9 +66,9 @@ class _WorkspaceScreenState extends State<WorkspaceScreen> {
               apptheme.updateTheme(!apptheme.isDarkMode);
             },
             icon: Icon(
-              apptheme.isDarkMode ? Icons.nightlight : Icons.wb_sunny,
+              apptheme.isDarkMode ? Icons.wb_sunny : Icons.nightlight,
               color: Colors.white,
-              size: 36,
+              size: 27,
             ),
           ),
           SizedBox(
@@ -74,7 +78,7 @@ class _WorkspaceScreenState extends State<WorkspaceScreen> {
       ),
       body: ConnectivityCheck(
         child: StreamBuilder(
-          stream: _workspacesStreamController?.stream.asBroadcastStream(),
+          stream: _workspacesStreamController?.stream,
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.hasData) {
               return Column(

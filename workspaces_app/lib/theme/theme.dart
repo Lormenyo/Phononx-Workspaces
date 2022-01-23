@@ -25,7 +25,7 @@ class AppTheme {
       color: Colors.white,
     ),
     iconTheme: IconThemeData(
-      color: Colors.white54,
+      color: Colors.black,
     ),
     fontFamily: 'Nunito',
     textTheme: TextTheme(
