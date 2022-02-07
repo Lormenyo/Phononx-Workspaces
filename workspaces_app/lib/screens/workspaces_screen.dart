@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:workspaces_app/models/workspace_model.dart';
+import 'package:workspaces_app/services/caching_service.dart';
 import 'package:workspaces_app/services/workspace_service.dart';
 import 'package:workspaces_app/theme/appThemeNotifier.dart';
 import 'package:workspaces_app/widgets/connectivity_checker.dart';
@@ -16,10 +18,15 @@ class WorkspaceScreen extends StatefulWidget {
 
 class _WorkspaceScreenState extends State<WorkspaceScreen> {
   StreamController? _workspacesStreamController;
+  CachingService cache = CachingService(boxName: 'workspaces');
+  List workspaces = [];
 
   loadWorkspaces() async {
     WorkspaceService.getWorkspaces().then((res) async {
       _workspacesStreamController?.add(res);
+
+      cache.addWorkspaces(res);
+
       return res;
     });
   }
@@ -41,6 +48,16 @@ class _WorkspaceScreenState extends State<WorkspaceScreen> {
     if (mounted) {
       _workspacesStreamController = new StreamController.broadcast();
       loadWorkspaces();
+      loadCachedWorkspaces();
+    }
+  }
+
+  loadCachedWorkspaces() async {
+    bool exists = await cache.isExists();
+    if (exists) {
+      workspaces = await cache.getWorkspaces();
+    } else {
+      workspaces = [];
     }
   }
 
@@ -79,6 +96,7 @@ class _WorkspaceScreenState extends State<WorkspaceScreen> {
       body: ConnectivityCheck(
         child: StreamBuilder(
           stream: _workspacesStreamController?.stream,
+          initialData: workspaces,
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.hasData) {
               return Column(
@@ -120,6 +138,39 @@ class _WorkspaceScreenState extends State<WorkspaceScreen> {
               MaterialPageRoute(
                   builder: (BuildContext context) => super.widget));
         },
+        cachedChild: FutureBuilder(
+          future: cache.getWorkspaces(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.hasData) {
+              return Column(
+                children: <Widget>[
+                  Expanded(
+                    child: Scrollbar(
+                      child: RefreshIndicator(
+                        onRefresh: _handleRefresh,
+                        child: ListView.builder(
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          itemCount: snapshot.data.length,
+                          itemBuilder: (context, index) {
+                            var workspace = snapshot.data[index];
+
+                            return WorkspaceWidget(
+                              id: workspace["id"],
+                              name: workspace["name"],
+                              imageUrl: workspace["image_url"],
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            } else {
+              return CircularProgressIndicator();
+            }
+          },
+        ),
       ),
     );
   }
