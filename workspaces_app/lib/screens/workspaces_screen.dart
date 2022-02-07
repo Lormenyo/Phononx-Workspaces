@@ -15,7 +15,8 @@ class WorkspaceScreen extends StatefulWidget {
   _WorkspaceScreenState createState() => _WorkspaceScreenState();
 }
 
-class _WorkspaceScreenState extends State<WorkspaceScreen> {
+class _WorkspaceScreenState extends State<WorkspaceScreen>
+    with WidgetsBindingObserver {
   StreamController? _workspacesStreamController;
   CachingService cache = CachingService(boxName: 'workspaces');
   List workspaces = [];
@@ -44,6 +45,9 @@ class _WorkspaceScreenState extends State<WorkspaceScreen> {
   @override
   void initState() {
     super.initState();
+
+    WidgetsBinding.instance?.addObserver(this);
+
     if (mounted) {
       _workspacesStreamController = new StreamController.broadcast();
       loadWorkspaces();
@@ -63,7 +67,19 @@ class _WorkspaceScreenState extends State<WorkspaceScreen> {
   @override
   void dispose() {
     super.dispose();
+    WidgetsBinding.instance?.removeObserver(this);
+
     _workspacesStreamController?.close();
+
+    cache.closeCacheBox();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      loadWorkspaces();
+      loadCachedWorkspaces();
+    }
   }
 
   @override
@@ -95,7 +111,7 @@ class _WorkspaceScreenState extends State<WorkspaceScreen> {
       body: ConnectivityCheck(
         child: StreamBuilder(
           stream: _workspacesStreamController?.stream,
-          initialData: workspaces,
+          // initialData: workspaces,
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.hasData) {
               return Column(

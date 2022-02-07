@@ -32,4 +32,8 @@ class CachingService {
 
     return boxList;
   }
+
+  closeCacheBox() async {
+    await this.box.close();
+  }
 }

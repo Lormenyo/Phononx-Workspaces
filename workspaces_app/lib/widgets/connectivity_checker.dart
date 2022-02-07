@@ -30,18 +30,18 @@ class _ConnectivityCheckState extends State<ConnectivityCheck> {
     checkIfCacheExists();
   }
 
-  loadCachedWorkspaces() async {
-    bool isExist = await cache.isExists();
-    var spaces = [];
-    if (exists) {
-      spaces = await cache.getWorkspaces();
-    }
+  // loadCachedWorkspaces() async {
+  //   bool isExist = await cache.isExists();
+  //   var spaces = [];
+  //   if (exists) {
+  //     spaces = await cache.getWorkspaces();
+  //   }
 
-    setState(() {
-      exists = isExist;
-      workspaces = spaces;
-    });
-  }
+  //   setState(() {
+  //     exists = isExist;
+  //     workspaces = spaces;
+  //   });
+  // }
 
   checkIfCacheExists() async {
     var isExist = await cache.isExists();
@@ -86,7 +86,7 @@ class _ConnectivityCheckState extends State<ConnectivityCheck> {
                 ),
               );
             } else {
-              return widget.child;
+              return widget.cachedChild;
             }
           } else {
             widget.onConnectionResumed();
