@@ -16,7 +16,8 @@ class CachingService {
 
   addWorkspaces(List<dynamic> items) async {
     for (var item in items) {
-      this.box.add(item);
+      this.box.put(item["id"], item);
+      // this.box.add(item);
     }
   }
 

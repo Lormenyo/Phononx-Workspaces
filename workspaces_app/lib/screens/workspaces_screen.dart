@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:workspaces_app/models/workspace_model.dart';
 import 'package:workspaces_app/services/caching_service.dart';
 import 'package:workspaces_app/services/workspace_service.dart';
 import 'package:workspaces_app/theme/appThemeNotifier.dart';
