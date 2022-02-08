@@ -65,14 +65,14 @@ class _WorkspaceScreenState extends State<WorkspaceScreen>
     }
   }
 
-  loadCachedWorkspaces() {
-    // check if there is data
+  // loadCachedWorkspaces() {
+  // check if there is data
 
-    // if there is no data, then it will load workspaces
-    // loadWorkspaces()
+  // if there is no data, then it will load workspaces
+  // loadWorkspaces()
 
-    // if there is data, return the data
-  }
+  // if there is data, return the data
+  // }
 
   // no data in cache
   // - can't load
