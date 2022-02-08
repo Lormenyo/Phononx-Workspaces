@@ -20,6 +20,8 @@ class _WorkspaceScreenState extends State<WorkspaceScreen> {
   loadWorkspaces() async {
     WorkspaceService.getWorkspaces().then((res) async {
       _workspacesStreamController?.add(res);
+
+      // cache the data
       return res;
     });
   }
@@ -43,6 +45,24 @@ class _WorkspaceScreenState extends State<WorkspaceScreen> {
       loadWorkspaces();
     }
   }
+
+  loadCachedWorkspaces() {
+    // check if there is data
+
+    // if there is no data, then it will load workspaces
+    // loadWorkspaces()
+
+    // if there is data, return the data
+  }
+
+  // no data in cache
+  // - can't load
+  // -loading - spinner
+  // data loaded
+  // make a request, load data, store in the cache
+  // data in cache
+  // loading  - spinner
+  // data loaded
 
   @override
   void dispose() {
